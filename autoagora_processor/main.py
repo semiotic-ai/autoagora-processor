@@ -19,6 +19,7 @@ from thegraph_gql_utils.tools import (
     extract_root_queries,
     factorize,
     prune_query_arguments,
+    remove_default_values,
     remove_query_name,
     remove_unknown_arguments,
     remove_values,
@@ -126,6 +127,9 @@ def normalize_query(
 ) -> List[Tuple[str, List[str]]]:
     logging.debug("Query before normalization: %s", query)
 
+    if isinstance(variables, (str, bytes)):
+        variables = json.loads(variables)
+
     outputs = []
     query_ast = parse(query)
 
@@ -134,9 +138,14 @@ def normalize_query(
     query_ast = prune_query_arguments(query_ast)
     query_ast = sort(query_ast)
     query_ast = remove_unknown_arguments(query_ast, schema)
+    query_ast, default_values = remove_default_values(query_ast)
+
     for root_query in extract_root_queries(query_ast):
+        # Merge variable values
+        variables_merged = {**default_values, **variables}
+
         root_query, removed_variables = remove_values(
-            root_query, existing_variables=variables
+            root_query, existing_variables=variables_merged
         )
         root_query = build_variable_definitions(root_query, schema)
         root_query = remove_query_name(root_query)
