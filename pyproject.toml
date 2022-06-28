@@ -21,20 +21,13 @@ gql = {extras = ["requests"], version = "^3.1.0"}
 pika = "^1.2.0"
 psycopg2-binary = "^2.9.3"
 ConfigArgParse = "^1.5.3"
-thegraph-gql-utils = {version = "^1.1.0", source = "gitlab-thegraph-gql-utils"}
 prometheus-client = "^0.14.1"
+thegraph-gql-utils = "^1.2.0"
 
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
 isort = "^5.10.1"
-
-
-[[tool.poetry.source]]
-name = "gitlab-thegraph-gql-utils"
-url = "https://gitlab.com/api/v4/projects/35082512/packages/pypi/simple"
-default = false
-secondary = true
 
 [build-system]
 requires = ["poetry_core>=1.1.0",]
