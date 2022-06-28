@@ -286,7 +286,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "be872eb3fa81baec5115589dcc8350971237d9519b9584f7a8a6deccc095879e"
+content-hash = "09a221c59f8f2476641ed55a1245e6743e5d93d43c0eb1eb6b77489728043b99"
 
 [metadata.files]
 black = [

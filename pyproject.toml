@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "autoagora-processor"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
     "Alexis Asseman <alexis@semiotic.ai>"
 ]
