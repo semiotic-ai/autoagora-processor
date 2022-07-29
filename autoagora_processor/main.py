@@ -49,6 +49,23 @@ argsparser.add_argument(
     help="Name of the RabbitMQ queue to pull query-node logs from.",
 )
 argsparser.add_argument(
+    "--rabbitmq-queue-limit",
+    env_var="RABBITMQ_QUEUE_LIMIT",
+    type=int,
+    default=1000,
+    required=False,
+    help="Size limit of the created RabbitMQ queue. It is discouraged to change that "
+    "value while the system is running, because it requires manual destruction of the "
+    "queue and a restart of the whole Auto Agora stack.",
+)
+argsparser.add_argument(
+    "--rabbitmq-exchange-name",
+    env_var="RABBITMQ_EXCHANGE_NAME",
+    default="gql_logs",
+    required=False,
+    help="Name of the RabbitMQ exchange query-node logs are pushed to.",
+)
+argsparser.add_argument(
     "--rabbitmq-username",
     env_var="RABBITMQ_USERNAME",
     type=str,
@@ -219,6 +236,22 @@ def main():
         pika.ConnectionParameters(host=args.rabbitmq_host, credentials=credentials)
     )
     channel = connection.channel()
+
+    # (re)-declare the rabbitmq exchange and queue
+    channel.exchange_declare(
+        exchange=args.rabbitmq_exchange_name,
+        exchange_type="fanout",
+    )
+    channel.queue_declare(
+        queue=args.rabbitmq_queue_name,
+        arguments={
+            "x-max-length": args.rabbitmq_queue_limit,
+            "x-overflow": "drop-head",
+        },
+    )
+    channel.queue_bind(
+        queue=args.rabbitmq_queue_name, exchange=args.rabbitmq_exchange_name
+    )
 
     channel.basic_consume(
         queue=args.rabbitmq_queue_name,
