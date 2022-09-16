@@ -6,7 +6,7 @@ import logging
 import signal
 from datetime import datetime
 from hashlib import blake2b
-from typing import Any, List, Mapping, Tuple, Union
+from typing import Any, List, Mapping, Optional, Tuple, Union
 
 import configargparse
 import pika
@@ -220,14 +220,20 @@ def callback(channel, _method, _properties, body):
         logging.exception("Failed to decode log data: %s", body)
         return
 
+    db_log_entries: Optional[List[QueryLogEntry]] = None
+
     try:
         logging.debug("GQL log line: %s", logline)
-        for db_log_entry in parse_gql_logline(logline):
-            logs_db.log_query(db_log_entry)
-            logging.info("Parsed GQL log entry: %s", db_log_entry)
+        db_log_entries = parse_gql_logline(logline)
     except:
         logging.exception("Failed to parse GQL log line: %s", logline)
         return
+
+    # Don't catch problems with the DB. Let the program crash instead.
+    if db_log_entries:
+        for db_log_entry in db_log_entries:
+            logs_db.log_query(db_log_entry)
+            logging.info("Parsed GQL log entry: %s", db_log_entry)
 
 
 def main():
