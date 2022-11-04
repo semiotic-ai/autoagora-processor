@@ -83,13 +83,13 @@ options:
   --rabbitmq-password RABBITMQ_PASSWORD
                         Password to use for the GQL logs RabbitMQ queue. [env var: RABBITMQ_PASSWORD] (default: guest)
   --postgres-host POSTGRES_HOST
-                        URL of the postgres instance use by the graph-nodes. [env var: POSTGRES_HOST] (default: None)
+                        Host of the postgres instance storing the logs. [env var: POSTGRES_HOST] (default: None)
   --postgres-database POSTGRES_DATABASE
-                        Name of the graph-node database. [env var: POSTGRES_DATABASE] (default: None)
+                        Name of the logs database. [env var: POSTGRES_DATABASE] (default: None)
   --postgres-username POSTGRES_USERNAME
-                        Username for the graph-node databse. [env var: POSTGRES_USERNAME] (default: None)
+                        Username for the logs databse. [env var: POSTGRES_USERNAME] (default: None)
   --postgres-password POSTGRES_PASSWORD
-                        Password for the graph-node database. [env var: POSTGRES_PASSWORD] (default: None)
+                        Password for the logs database. [env var: POSTGRES_PASSWORD] (default: None)
   --log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}
                         [env var: LOG_LEVEL] (default: WARNING)
 ```
