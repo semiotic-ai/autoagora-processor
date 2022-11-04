@@ -85,25 +85,25 @@ argsparser.add_argument(
     "--postgres-host",
     env_var="POSTGRES_HOST",
     required=True,
-    help="URL of the postgres instance use by the graph-nodes.",
+    help="Host of the postgres instance storing the logs.",
 )
 argsparser.add_argument(
     "--postgres-database",
     env_var="POSTGRES_DATABASE",
     required=True,
-    help="Name of the graph-node database.",
+    help="Name of the logs database.",
 )
 argsparser.add_argument(
     "--postgres-username",
     env_var="POSTGRES_USERNAME",
     required=True,
-    help="Username for the graph-node databse.",
+    help="Username for the logs database.",
 )
 argsparser.add_argument(
     "--postgres-password",
     env_var="POSTGRES_PASSWORD",
     required=True,
-    help="Password for the graph-node database.",
+    help="Password for the logs database.",
 )
 argsparser.add_argument(
     "--log-level",
