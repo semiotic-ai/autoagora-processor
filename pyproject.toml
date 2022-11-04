@@ -24,10 +24,10 @@ ConfigArgParse = "^1.5.3"
 prometheus-client = "^0.14.1"
 thegraph-gql-utils = "^1.2.0"
 
-
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 black = "^22.1.0"
 isort = "^5.10.1"
+pyright = "^1.1.278"
 
 [build-system]
 requires = ["poetry_core>=1.1.0",]
