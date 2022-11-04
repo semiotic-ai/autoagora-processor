@@ -1,0 +1,35 @@
+name: Tests
+
+on: [push]
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+    runs-on: ubuntu-latest
+    env:
+      # https://github.com/actions/runner-images/issues/6185
+      PYTHON_KEYRING_BACKEND: keyring.backends.null.Keyring
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: curl -sSL https://install.python-poetry.org | python3 -
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: poetry
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Black formatter
+        run: poetry run black --check --diff --color .
+
+      - name: Isort formatter
+        run: poetry run isort --check --diff .
+
+      - name: Pyright static type checks
+        run: poetry run pyright .
