@@ -145,7 +145,11 @@ def normalize_query(
     logging.debug("Query before normalization: %s", query)
 
     if isinstance(variables, (str, bytes)):
-        variables = json.loads(variables)
+        variables_map = json.loads(variables)
+    elif isinstance(variables, Mapping):
+        variables_map = variables
+    else:
+        raise RuntimeError
 
     outputs = []
     query_ast = parse(query)
@@ -159,7 +163,7 @@ def normalize_query(
 
     for root_query in extract_root_queries(query_ast):
         # Merge variable values
-        variables_merged = {**default_values, **variables}
+        variables_merged = {**default_values, **variables_map}
 
         root_query, removed_variables = remove_values(
             root_query, existing_variables=variables_merged
@@ -192,6 +196,7 @@ def parse_gql_logline(logline: str):
 
     # Normalize query
     schema = subgraph_schemas[subgraph]
+    assert schema is not None
 
     normalized_queries = normalize_query(query, query_variables, schema)
     return [
