@@ -1,3 +1,9 @@
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+[![Semantic Versioning](https://img.shields.io/badge/semver-2.0.0-green)](https://semver.org/spec/v2.0.0.html)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 # AutoAgora Processor
 
 Processes raw `indexer-service` logs from a RabbitMQ queue, saves the results to a PostgreSQL database.
@@ -10,7 +16,7 @@ execution time and fees paid.
 - Saves the query skeleton (if never seen before), as well as a logs all the information
   about the query execution (including the variable values used).
 
-Refer to [AutoAgora](https://gitlab.com/semiotic-ai/the-graph/autoagora) for more
+Refer to [AutoAgora](https://github.com/semiotic-ai/autoagora) for more
 details.
 
 ## Indexer's guide
