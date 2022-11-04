@@ -33,5 +33,11 @@ pyright = "^1.1.278"
 requires = ["poetry_core>=1.1.0",]
 build-backend = "poetry.core.masonry.api"
 
+[tool.semantic_release]
+upload_to_repository = false
+version_source = "tag_only"
+build_command = false
+upload_to_release = false
+
 [tool.isort]
 profile = "black"
