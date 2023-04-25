@@ -91,7 +91,7 @@ argsparser.add_argument(
     "--postgres-port",
     env_var="POSTGRES_PORT",
     required=True,
-    help="Postgres database port.",
+    help="Port of the postgres instance storing the logs.",
 )
 argsparser.add_argument(
     "--postgres-database",
