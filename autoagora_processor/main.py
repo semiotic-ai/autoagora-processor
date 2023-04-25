@@ -88,6 +88,12 @@ argsparser.add_argument(
     help="Host of the postgres instance storing the logs.",
 )
 argsparser.add_argument(
+    "--postgres-port",
+    env_var="POSTGRES_PORT",
+    required=True,
+    help="Postgres database port.",
+)
+argsparser.add_argument(
     "--postgres-database",
     env_var="POSTGRES_DATABASE",
     required=True,
@@ -121,6 +127,7 @@ logs_db = LogsDB(
     user=args.postgres_username,
     password=args.postgres_password,
     host=args.postgres_host,
+    port=args.postgres_port,
 )
 
 subgraph_schemas = SubgraphSchemas()
