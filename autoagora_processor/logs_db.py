@@ -15,8 +15,9 @@ class LogsDB:
         user: str,
         password: str,
         host: str,
+        port: str,
     ) -> None:
-        self.conn = pg.connect(dbname=dbname, user=user, password=password, host=host)
+        self.conn = pg.connect(dbname=dbname, user=user, password=password, host=host, port=port)
         self.conn.autocommit = True
         self.cur = self.conn.cursor()
 

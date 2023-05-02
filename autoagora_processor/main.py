@@ -106,6 +106,12 @@ argsparser.add_argument(
     help="Password for the logs database.",
 )
 argsparser.add_argument(
+    "--postgres-port",
+    env_var="POSTGRES_PORT",
+    required=True,
+    help="Port for the logs database.",
+)
+argsparser.add_argument(
     "--log-level",
     env_var="LOG_LEVEL",
     type=str,
@@ -121,6 +127,7 @@ logs_db = LogsDB(
     user=args.postgres_username,
     password=args.postgres_password,
     host=args.postgres_host,
+    port=args.postgress_port,
 )
 
 subgraph_schemas = SubgraphSchemas()
