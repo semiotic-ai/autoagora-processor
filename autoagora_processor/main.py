@@ -127,7 +127,7 @@ logs_db = LogsDB(
     user=args.postgres_username,
     password=args.postgres_password,
     host=args.postgres_host,
-    port=args.postgress_port
+    port=args.postgress_port,
 )
 
 subgraph_schemas = SubgraphSchemas()

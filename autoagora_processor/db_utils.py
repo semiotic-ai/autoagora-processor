@@ -48,7 +48,7 @@ def get_indexed_subgraphs() -> Set[str]:
         user=args.graph_postgres_username,
         password=args.graph_postgres_password,
         host=args.graph_postgres_host,
-        port=args.graph_postgres_port
+        port=args.graph_postgres_port,
     )
     cur = conn.cursor()
 
