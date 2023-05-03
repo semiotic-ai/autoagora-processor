@@ -34,6 +34,13 @@ argsparser.add_argument(
     required=True,
     help="Password for the graph-node database.",
 )
+argsparser.add_argument(
+    "--graph-postgres-port ",
+    env_var="GRAPH_POSTGRES_PORT",
+    default=5432,
+    required=True,
+    help="Port for the graph-node database.",
+)
 
 
 def get_indexed_subgraphs() -> Set[str]:
@@ -42,6 +49,7 @@ def get_indexed_subgraphs() -> Set[str]:
         user=args.graph_postgres_username,
         password=args.graph_postgres_password,
         host=args.graph_postgres_host,
+        port=args.graph_postgres_port,
     )
     cur = conn.cursor()
 
