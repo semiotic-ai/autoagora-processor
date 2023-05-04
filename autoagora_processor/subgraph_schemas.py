@@ -16,17 +16,8 @@ from graphql import (
     get_introspection_query,
 )
 
-from autoagora_processor.db_utils import get_indexed_subgraphs
-
-argsparser = configargparse.get_argument_parser()
-argsparser.add_argument(
-    "--graph-node-query-endpoint",
-    env_var="GRAPH_NODE_QUERY_ENDPOINT",
-    required=True,
-    help="URL of the indexer's graph-node GraphQL query endpoint.",
-)
-
 from autoagora_processor.config import args
+from autoagora_processor.db_utils import get_indexed_subgraphs
 
 
 class SubgraphSchemas(Mapping):

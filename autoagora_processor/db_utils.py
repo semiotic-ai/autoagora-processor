@@ -3,44 +3,10 @@
 
 from typing import Set
 
-import configargparse
 import psycopg2
 from more_itertools import flatten
 
 from autoagora_processor.config import args
-
-argsparser = configargparse.get_argument_parser()
-argsparser.add_argument(
-    "--graph-postgres-host",
-    env_var="GRAPH_POSTGRES_HOST",
-    required=True,
-    help="URL of the postgres instance use by the graph-nodes.",
-)
-argsparser.add_argument(
-    "--graph-postgres-database",
-    env_var="GRAPH_POSTGRES_DATABASE",
-    required=True,
-    help="Name of the graph-node database.",
-)
-argsparser.add_argument(
-    "--graph-postgres-username",
-    env_var="GRAPH_POSTGRES_USERNAME",
-    required=True,
-    help="Username for the graph-node databse.",
-)
-argsparser.add_argument(
-    "--graph-postgres-password",
-    env_var="GRAPH_POSTGRES_PASSWORD",
-    required=True,
-    help="Password for the graph-node database.",
-)
-argsparser.add_argument(
-    "--graph-postgres-port",
-    env_var="GRAPH_POSTGRES_PORT",
-    default=5432,
-    required=False,
-    help="Port for the graph-node database.",
-)
 
 
 def get_indexed_subgraphs() -> Set[str]:
