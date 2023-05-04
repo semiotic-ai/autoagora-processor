@@ -109,7 +109,7 @@ argsparser.add_argument(
     "--postgres-port",
     env_var="POSTGRES_PORT",
     default=5432,
-    required=True,
+    required=False,
     help="Port for the logs database.",
 )
 argsparser.add_argument(

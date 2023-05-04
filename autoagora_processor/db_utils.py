@@ -38,7 +38,7 @@ argsparser.add_argument(
     "--graph-postgres-port ",
     env_var="GRAPH_POSTGRES_PORT",
     default=5432,
-    required=True,
+    required=False,
     help="Port for the graph-node database.",
 )
 
