@@ -35,7 +35,7 @@ argsparser.add_argument(
     help="Password for the graph-node database.",
 )
 argsparser.add_argument(
-    "--graph-postgres-port ",
+    "--graph-postgres-port",
     env_var="GRAPH_POSTGRES_PORT",
     default=5432,
     required=False,
