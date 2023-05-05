@@ -12,6 +12,13 @@ jobs:
     permissions:
       contents: write
 
+    outputs:      
+      published: ${{ steps.release.outputs.published }}
+      published_version: ${{ steps.release.outputs.published_version }}
+      published_version_major: ${{ steps.release.outputs.published_version_major }}
+      published_version_minor: ${{ steps.release.outputs.published_version_minor }}
+      published_version_patch: ${{ steps.release.outputs.published_version_patch }}
+
     steps:
     - uses: actions/checkout@v2
       with:
@@ -21,3 +28,38 @@ jobs:
       uses: relekang/python-semantic-release@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  container_build:
+    runs-on: ubuntu-latest
+    needs: release
+    if: needs.release.outputs.published == 'True'
+    permissions:
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Build Image
+      id: build-image
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: autoagora_processor
+        tags: >
+          latest
+          v${{ needs.release.outputs.published_version_major }}
+          v${{ needs.release.outputs.published_version_major }}.${{ needs.release.outputs.published_version_minor }}
+          v${{ needs.release.outputs.published_version}}
+        containerfiles: |
+          ./Dockerfile
+    - name: Push
+      id: push-to-ghcr
+      uses: redhat-actions/push-to-registry@v2
+      with:
+        image: ${{ steps.build-image.outputs.image }}
+        tags: ${{ steps.build-image.outputs.tags }}
+        registry: ghcr.io/semiotic-ai
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Print image url
+      run: echo "Image pushed to ${{ steps.push-to-ghcr.outputs.registry-paths }}"
