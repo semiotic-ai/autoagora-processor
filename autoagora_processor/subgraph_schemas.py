@@ -51,7 +51,11 @@ class SubgraphSchemas(Mapping):
             fetch_schema_from_transport=False,
         )
         try:
-            result = IntrospectionQuery(client.execute(gql(introspection_query)))
+            result = IntrospectionQuery(
+                client.execute(
+                    gql(introspection_query)
+                )  # pyright: ignore [reportGeneralTypeIssues]
+            )
         except TransportQueryError as e:
             # Should happen when there is an indexing error
             logging.warn(
