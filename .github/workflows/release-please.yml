@@ -36,7 +36,7 @@ jobs:
           release-type: python
           bump-minor-pre-major: true
           bump-patch-for-minor-pre-major: true
-          # token: ${{ steps.generate_token.outputs.token }}
+          token: ${{ steps.generate_token.outputs.token }}
 
   container_build:
     runs-on: ubuntu-latest
