@@ -34,8 +34,6 @@ jobs:
         uses: google-github-actions/release-please-action@4c5670f886fe259db4d11222f7dff41c1382304d #v3.7.12
         with:
           release-type: python
-          bump-minor-pre-major: true
-          bump-patch-for-minor-pre-major: true
           token: ${{ steps.generate_token.outputs.token }}
 
   container_build:
