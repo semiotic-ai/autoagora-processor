@@ -5,7 +5,6 @@ import logging
 from collections.abc import Mapping
 from typing import Dict, Iterator, Optional
 
-import configargparse
 from gql import Client, gql
 from gql.transport.exceptions import TransportQueryError
 from gql.transport.requests import RequestsHTTPTransport
@@ -17,7 +16,7 @@ from graphql import (
 )
 
 from autoagora_processor.config import args
-from autoagora_processor.db_utils import get_indexed_subgraphs
+from autoagora_processor.indexer_api import get_allocated_subgraphs
 
 
 class SubgraphSchemas(Mapping):
@@ -26,7 +25,7 @@ class SubgraphSchemas(Mapping):
 
         self.schemas: Dict[str, Optional[GraphQLSchema]] = {
             subgraph: self.get_schema_from_graph_node(subgraph)
-            for subgraph in get_indexed_subgraphs()
+            for subgraph in get_allocated_subgraphs()
         }
         logging.info("Added schemas for %s subgraphs", len(self.schemas))
 
@@ -70,7 +69,7 @@ class SubgraphSchemas(Mapping):
 
     def __getitem__(self, subgraph_ipfs_hash: str) -> Optional[GraphQLSchema]:
         if subgraph_ipfs_hash not in self.schemas.keys():
-            assert subgraph_ipfs_hash in get_indexed_subgraphs()
+            assert subgraph_ipfs_hash in get_allocated_subgraphs()
             new_schema = self.get_schema_from_graph_node(subgraph_ipfs_hash)
             self.schemas[subgraph_ipfs_hash] = new_schema
             if new_schema:

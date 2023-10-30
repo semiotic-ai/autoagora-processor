@@ -8,7 +8,6 @@ from datetime import datetime
 from hashlib import blake2b
 from typing import Any, List, Mapping, Tuple, Union
 
-import configargparse
 import pika
 from graphql import GraphQLSchema, parse
 from graphql.utilities import strip_ignored_characters as gql_strip_ignored_characters
