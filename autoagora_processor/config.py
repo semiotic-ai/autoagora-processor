@@ -130,38 +130,13 @@ def init_config():
         help="URL of the indexer's graph-node GraphQL query endpoint.",
     )
     #
+    # Indexer Agent API endpoint
     #
-    #
     argsparser.add_argument(
-        "--graph-postgres-host",
-        env_var="GRAPH_POSTGRES_HOST",
+        "--indexer-agent-mgmt-endpoint",
+        env_var="INDEXER_AGENT_MGMT_ENDPOINT",
         required=True,
-        help="URL of the postgres instance use by the graph-nodes.",
-    )
-    argsparser.add_argument(
-        "--graph-postgres-database",
-        env_var="GRAPH_POSTGRES_DATABASE",
-        required=True,
-        help="Name of the graph-node database.",
-    )
-    argsparser.add_argument(
-        "--graph-postgres-username",
-        env_var="GRAPH_POSTGRES_USERNAME",
-        required=True,
-        help="Username for the graph-node databse.",
-    )
-    argsparser.add_argument(
-        "--graph-postgres-password",
-        env_var="GRAPH_POSTGRES_PASSWORD",
-        required=True,
-        help="Password for the graph-node database.",
-    )
-    argsparser.add_argument(
-        "--graph-postgres-port",
-        env_var="GRAPH_POSTGRES_PORT",
-        default=5432,
-        required=False,
-        help="Port for the graph-node database.",
+        help="URL to the indexer-agent management GraphQL endpoint.",
     )
     argsparser.parse_args(namespace=args)
 
