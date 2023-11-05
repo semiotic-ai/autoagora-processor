@@ -6,6 +6,7 @@ from typing import Mapping, Optional, Set
 
 import backoff
 from gql import Client, gql
+from gql.transport.exceptions import TransportQueryError
 from gql.transport.requests import RequestsHTTPTransport
 from requests import RequestException
 
@@ -42,9 +43,32 @@ def get_network_allocated_subgraphs(network: str) -> Set[str]:
 
 
 def get_allocated_subgraphs() -> Set[str]:
-    """Get the indexer's subgraph allocations for all Graph networks."""
+    """
+    Get the indexer's subgraph allocations for all Graph networks.
+
+    Will try for both mainnet and arbitrum-one networks. If one of them fails, it
+    will ignore it (happens if the indexer-agent is in single network mode).
+    If both fail, it will raise the exception.
+    """
 
     networks = ("mainnet", "arbitrum-one")
-    results = map(get_network_allocated_subgraphs, networks)
+    results = []
+
+    for network in networks:
+        try:
+            results += [get_network_allocated_subgraphs(network)]
+        except TransportQueryError:
+            logging.info(
+                f"Failed to get indexer allocations for network '{network}'. Ignoring."
+            )
+            results += [None]
+
+    if all(r is None for r in results):
+        raise RuntimeError(
+            f"Failed to query indexer allocations for all Graph networks: {networks}."
+        )
+
+    # Replace None's with empty set
+    results = [r if r is not None else set() for r in results]
 
     return set.union(*results)
