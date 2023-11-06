@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/semiotic-ai/autoagora-processor/compare/v1.0.0...v1.0.1) (2023-11-06)
+
+
+### Bug Fixes
+
+* support single-network mode ([beae50e](https://github.com/semiotic-ai/autoagora-processor/commit/beae50ec355fde7888f18e5d0b4dbd630be30405))
+
 ## [1.0.0](https://github.com/semiotic-ai/autoagora-processor/compare/v0.4.1...v1.0.0) (2023-10-30)
 
 
